@@ -20,6 +20,7 @@ logs/
 # Dependencies
 *.jar
 !gradle/wrapper/*.jar
+!**/gradle/wrapper/*.jar
 !versions/*/libs/*.jar
 !newforge/*/libs/*.jar
 
@@ -41,6 +42,9 @@ GameRenderer_bytecode.txt
 .test/
 baritone-maven/
 fabric/baritone-maven/
+
+# Gradle project cache left over from an older build (no script references it)
+.gradle-compose-cache/
 
 # Stale porting artifacts and baritone tool workspaces
 _porting_stale/
