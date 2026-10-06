@@ -96,9 +96,12 @@ distribution resolves even offline.
 
 ## Licence
 
-**The source is [GPL-3.0](LICENSE.txt), inherited from Wurst.** The `LICENSE.txt` at the repository
-root is the LGPL 2.1 text that ships with the Forge MDK template and applies to the Minecraft Forge
-/ FML parts described in it.
+**The source is [GPL-3.0](LICENSE.txt), inherited from Wurst.** Every project's
+`LICENSE.txt` / `LICENSE` now contains the **full GPL-3.0 text** (unified on 2026-10-06; the files
+previously carried the LGPL 2.1 text shipped with the Forge MDK template), and `build.gradle`
+embeds it into the jar. A few projects also ship a `TEMPLATE_LICENSE.txt`, which is the **MIT**
+license of the NeoForged MDK template files themselves and applies only to those files, not to this
+project's source, so it is kept as-is.
 
 > **Note:** only the **six 1.21.11 and 26.2 projects** have been verified by **launching the game**.
 > Every other artifact has passed compilation and **packaging validation** (intact zip, loader
