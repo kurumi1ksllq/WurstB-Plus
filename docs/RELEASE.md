@@ -18,7 +18,7 @@ WurstB+ Plus 是一个基于 Wurst 代码结构扩展的 Minecraft 客户端项�
 - **3 个 1.20.1 根工程**：根目录 Forge（**v1.6.0**）、`fabric/` 与 `neoforge/`（后两个是 **v1.5.0**）。
 
 **67 个工程中，66 个的 v1.5.0 产物已按当前源码重新构建**，并与留存的原 1.20.1 Forge 产物一起发布在 GitHub Release
-[**WurstB+ Plus 1.5.0**](https://github.com/xiegeezr886/WurstB-Plus/releases/tag/v1.5.0)（**共 67 个资产**，命名统一为
+[**WurstB+ Plus 1.5.0**](https://github.com/kurumi1ksllq/WurstB-Plus/releases/tag/v1.5.0)（**共 67 个资产**，命名统一为
 `WurstB+.Plus-<版本>-<加载器>-<mc>.jar`）。每个 jar 都做过打包校验（zip 完好、含加载器元数据与 Mixin 配置、含主类），
 但**除 1.21.11 / 26.2 的六个工程外均无游戏内启动验证**——详见[多版本平行移植](#多版本平行移植)与[验证状态](#验证状态)。
 
