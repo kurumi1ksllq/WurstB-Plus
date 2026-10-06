@@ -386,8 +386,8 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
 
 ## 10. 待确认 / 已知与文档不符的地方
 
-> 下面 1–7 条是这次**实测后已定论**的，列在这里是因为仓库文档里还存在相反的说法，
-> 改动时以这里为准；8–9 条是真正的未知项。
+> 下面 1–8 条是这次**实测后已定论**的，列在这里是因为仓库文档里还存在相反的说法，
+> 改动时以这里为准；9–10 条是真正的未知项。
 
 ### 已核实（文档里仍有旧说法）
 
@@ -409,18 +409,24 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
    旧文写「15 个」；根工程 `src/main/java` 实测 **1056** 个 `.java`（旧文 1046），
    18 个工程合计 **14,217**（15 工程口径旧文为 11,779）。已在 `PROJECT_INDEX.md` 加更正。
 7. **根 `README.md` / `README.en.md` / `LICENSE.txt` 已恢复**（本地原本缺失、确认为非刻意丢失）：
-   已从原上游仓库 `xiegeezr886/WurstB-Plus` 取回这三个文件（内容未改）。
+   已从原上游仓库 `xiegeezr886/WurstB-Plus` 取回。
    `build.gradle` 的 `jar { from("LICENSE.txt") }` 因此不再取不到文件。
-   注意：根 `LICENSE.txt` 是 **Forge MDK 的 LGPL 模板**，而源码是 GPL-3.0-or-later，
-   两者本就不同（原仓库 README 里自己就写了这点），历史沿用，勿当成错误。
+8. **许可证已统一为 GPL-3.0（2026-10-06）**：原先 `LICENSE.txt` 挂的是 Forge MDK 的
+   **LGPL 2.1** 文本，与 `mods.toml` / `fabric.mod.json` 声明的 `GPL-3.0-or-later` 不一致。
+   现已把 34 份 `LICENSE.txt` 全部换成 GPL-3.0 全文（取自仓库内已有的
+   `fabric/**/META-INF/licenses/cozyui/CozyUI-GPL-3.0.txt`，逐字标准版，674 行）。
+   同时补上了 **28 个原本缺许可证文件**的工程：23 个 fabric 工程的 `build.gradle` 写的是
+   `from("LICENSE")` 但文件从来不存在（所以 fabric 的 jar 一直没嵌许可证），
+   另有 5 个工程（`neoforge`、`versions/1.20.2/1.20.3/1.20.4/1.20.6`）引用 `LICENSE.txt` 但缺失。
+   `TEMPLATE_LICENSE.txt`（10 个）是 NeoForged MDK 模板文件的 **MIT** 许可，仅管模板本身，**保留不动**。
 
 ### 未知项（拿不准，没编）
 
-8. **`.gradle-compose-cache/`**：实测是 Gradle 8.11 project cache，全仓无引用，可删；
+9. **`.gradle-compose-cache/`**：实测是 Gradle 8.11 project cache，全仓无引用，可删；
    已加入 `.gitignore`（commit `4f56186`），不再是问题。
-9. **`tools/` 目录缺失**：`scripts/seed-gradle-wrapper.ps1` 从旁置 `tools/` 播种 wrapper 发行版，
-   但仓库里没有 `tools/`，该脚本在纯 clone 环境下无法直接跑（需 `-ToolsRoot`）。
-   wrapper jar 已经补齐，无需再补种。
+10. **`tools/` 目录缺失**：`scripts/seed-gradle-wrapper.ps1` 从旁置 `tools/` 播种 wrapper 发行版，
+    但仓库里没有 `tools/`，该脚本在纯 clone 环境下无法直接跑（需 `-ToolsRoot`）。
+    wrapper jar 已经补齐，无需再补种。
 
 ---
 
