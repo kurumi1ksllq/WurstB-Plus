@@ -395,7 +395,7 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
    旧文写「15 个」；根工程 `src/main/java` 实测 **1056** 个 `.java`（旧文 1046），
    18 个工程合计 **14,217**（15 工程口径旧文为 11,779）。已在 `PROJECT_INDEX.md` 加更正。
 7. **根 `README.md` / `README.en.md` / `LICENSE.txt` 已恢复**（本地原本缺失、确认为非刻意丢失）：
-   已从上游 `xiegeezr886/WurstB-Plus` 取回这三个文件（内容未改）。
+   已从上游 `kurumi1ksllq/WurstB-Plus` 取回这三个文件（内容未改）。
    `build.gradle` 的 `jar { from("LICENSE.txt") }` 因此不再取不到文件。
    注意：根 `LICENSE.txt` 是 **Forge MDK 的 LGPL 模板**，而源码是 GPL-3.0-or-later，
    两者本就不同（上游 README 里自己就写了这点），历史沿用，勿当成错误。
