@@ -171,7 +171,7 @@ Updated: 2026-09-26
 
 ### 1. GitHub issue #3（设置窗口 UI 偏移）
 
-**仓库**：`xiegeezr886/WurstB-Plus`，fabric 26.1.2。「右键功能的设置窗口会跑到左上角，但字不会跑」。目前无用户 crash-report / debug.log，已做静态排查（2026-08-29），未能定位确定性根因，需继续：
+**仓库**：`kurumi1ksllq/WurstB-Plus`，fabric 26.1.2。「右键功能的设置窗口会跑到左上角，但字不会跑」。目前无用户 crash-report / debug.log，已做静态排查（2026-08-29），未能定位确定性根因，需继续：
 
 - 已排查（2026-08-29 新增）：
   - `SettingsWindow.java`、`Window.java`、`FlatRenderer.java`、`GuiGraphicsExtractorAccessor.java` 在 fabric 26.1.2 与 26.2 之间**逐字节一致**（`SettingsWindow`/`Window` diff=0），排除平台代码差异。
