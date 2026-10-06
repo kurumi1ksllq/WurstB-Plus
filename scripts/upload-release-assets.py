@@ -26,7 +26,7 @@ import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, 'build', 'release-v1.5')
-OWNER_REPO = 'xiegeezr886/WurstB-Plus'
+OWNER_REPO = 'kurumi1ksllq/WurstB-Plus'
 API = 'https://api.github.com'
 UA = {'User-Agent': 'wurstb-release-uploader', 'Accept':
       'application/vnd.github+json'}
