@@ -281,7 +281,10 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
 - **构建本地真需要的两个缺口（实测 2026-10-06）**：
   1. 根工程 `baritone-api-forge-1.20.1.jar` 缺失，不动它连 `compileJava`/`test` 都跑不了
      （4.2 节给了临时补齐办法）。
-  2. 58 个版本工程缺 `gradle-wrapper.jar`，只能用根 wrapper + `-p`。
+  2. `gradle-wrapper.jar` 原只 9 个工程有；**已于 2026-10-06 补齐到 67 个全部都有**
+     （commit `7fa2464`）。同一个 wrapper jar 可引导 properties 指定的任意 Gradle 版本，
+     实测：`fabric/versions/1.21.11`（声明 9.6.0）与 `versions/1.21.11`（声明 9.4.1）
+     用补入的 jar 跑 `gradlew.bat --version` 均正常。
 - **jar 与压缩包**：`*.jar`、`*.zip` 被忽略，**例外**：`gradle/wrapper/*.jar`、
   `versions/*/libs/*.jar`、`newforge/*/libs/*.jar` 是刻意入库的（`versions/*/libs/` 里的
   Baritone jar 是 Forge 1.21/1.21.1 的 flatDir 依赖来源）。
@@ -289,14 +292,24 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
   `icudtl.dat` 约 10 MB）**刻意不 jarJar**，随 mod 资源打包，运行时由 `SkikoNatives` 解压并
   用 `skiko.library.path` / `skiko.data.path` 加载。动它之前先看 `build.gradle` 里的注释。
 - **不要按进程名杀 node**（团队红线，宿主 pi 也是 `node.exe`）。清理残留子进程按命令行特征过滤。
-- **不要覆盖根工程的 `gradle-wrapper.jar`**（含 `Main-Class`）：仓库里只有 9 个工程带它，
-  根那个就是共用的那把；历史上缺 `Main-Class` 会让构建无声失败（见 `PORTING_TASK.md` 已完成任务 4）。
+- **不要覆盖根工程的 `gradle-wrapper.jar`**（含 `Main-Class`）：**67 个工程的 wrapper jar
+  目前内容完全相同**（md5 `15a2cd45cb049056c465b481d6eabb3c`），改一个就等于全改；
+  历史上缺 `Main-Class` 会让构建无声失败（见 `PORTING_TASK.md` 已完成任务 4）。
 - **`.gradle-compose-cache/`**：Gradle 8.11 的 project cache（`checksums`/`executionHistory`/
   `fileHashes`/`vcs-1`/`buildOutputCleanup`），全仓无任何脚本/配置引用它，可当**陈旧构建缓存**删掉；
-  它不是源码，但也不在 `.gitignore` 里（见第 10 节）。
-- **仓库很大（实测）**：排除 `build/`、`.gradle/`、`logs/` 等忽略目录后，按 `.gitignore` 模拟仍约
-  **2.0 GB**（`fabric/` 654MB + `neoforge/` 654MB + `versions/` 578MB + `src/` 94MB）。
-  主因是 469 份重复的 `mcsans_*.png`（每个版本工程 4.16 MB）。推送到远端前先评估体积。
+  已加入 `.gitignore`（commit `4f56186`）。
+- **仓库体积（实测 2026-10-06，重要更正）**：
+  | 指标 | 值 |
+  | --- | --- |
+  | 工作区磁盘 | **2.1 GB** |
+  | `.git`（gc 后） | **77 MB** |
+  | 远端 bare clone | **68 MB** |
+  | 跟踪文件数 | 61,364 |
+  | **唯一内容 blob** | **3,762 个，合计 112 MB** |
+
+  **Git 已做内容级去重**：1347 MB 的 `mcsans_*.png`（67 工程 × 7，工作区 1656 MB 的 font 目录）
+  在 git 里**只有 7 个 blob**。所以「仓库 2GB」是错的——那是工作区磁盘占用，与远端无关。
+  远端 68 MB 无需 LFS，也不需要做资源去重。
 - **`baritone-maven/` 不存在是正常的**，不要试图「修复」它；需要时按
   `docs/PORTING-NEW-VERSIONS.md` 重建。
 
@@ -373,19 +386,20 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
 
 ## 10. 待确认 / 已知与文档不符的地方
 
-> 下面 1–6 条是这次**实测后已定论**的，列在这里是因为仓库文档里还存在相反的说法，
-> 改动时以这里为准；7–8 条是真正的未知项。
+> 下面 1–7 条是这次**实测后已定论**的，列在这里是因为仓库文档里还存在相反的说法，
+> 改动时以这里为准；8–9 条是真正的未知项。
 
-**已核实（文档里仍有旧说法）**
+### 已核实（文档里仍有旧说法）
 
 1. **测试计数**：实测 187 类 / 1192 项 / 0 失败。旧文档的「176 类 / 1114 项」已过时，
    已在 `PROJECT_INDEX.md`、`docs/RELEASE.md`、`CHANGELOG.md` 同步更正。
 2. **空占位目录不存在**：`docs/PORTING-NEW-VERSIONS.md` 说「另有 6 个无上游版本的空占位目录，合计 61 个」，
    实测 `versions/`、`fabric/versions/`、`neoforge/versions/` 下**每个目录都有 `build.gradle`**，
    即 **0 个空占位目录**，实际为 20+22+22=64 个版本工程。已在该文档加更正段。
-3. **`gradle-wrapper.jar` 并非「67 个工程全部含」**：实测**只有 9 个**工程有
-   （根、`fabric`、`fabric/versions/1.21.1`、`fabric/versions/26.1.2`、`neoforge/versions/26.1`、
-   `26.1.1`、`26.1.2`、`26.2`、`26.3`）；其余 58 个只有 `properties`。已在 `docs/RELEASE.md` 更正。
+3. **`gradle-wrapper.jar` 原只有 9 个工程有**（根、`fabric`、`fabric/versions/1.21.1`、
+   `fabric/versions/26.1.2`、`neoforge/versions/26.1`、`26.1.1`、`26.1.2`、`26.2`、`26.3`），
+   其余 58 个只有 `properties`。**已于 2026-10-06 补齐到 67/67**（commit `7fa2464`），
+   已实测可用；`docs/RELEASE.md` 里的更正段记录的「只有 9 个」是补齐前的状态。
 4. **根工程 `baritone-api-forge-1.20.1.jar` 缺失**：被 `.gitignore` 排除，新 clone 里没有它，
    根工程无法编译/测试。官方 1.10.3 可临时顶替（见 4.2 节）。**文档未提醒这一点，已补。**
 5. **`RadialMenuHack` 确实未注册**：`hacks/` 下声明 `extends Hack` 的类 = **210**，
@@ -395,20 +409,18 @@ python scripts/sync-version-branches.py --dry-run # 同步 per-version 分支（
    旧文写「15 个」；根工程 `src/main/java` 实测 **1056** 个 `.java`（旧文 1046），
    18 个工程合计 **14,217**（15 工程口径旧文为 11,779）。已在 `PROJECT_INDEX.md` 加更正。
 7. **根 `README.md` / `README.en.md` / `LICENSE.txt` 已恢复**（本地原本缺失、确认为非刻意丢失）：
-   已从上游 `kurumi1ksllq/WurstB-Plus` 取回这三个文件（内容未改）。
+   已从原上游仓库 `xiegeezr886/WurstB-Plus` 取回这三个文件（内容未改）。
    `build.gradle` 的 `jar { from("LICENSE.txt") }` 因此不再取不到文件。
    注意：根 `LICENSE.txt` 是 **Forge MDK 的 LGPL 模板**，而源码是 GPL-3.0-or-later，
-   两者本就不同（上游 README 里自己就写了这点），历史沿用，勿当成错误。
+   两者本就不同（原仓库 README 里自己就写了这点），历史沿用，勿当成错误。
 
-**未知项（拿不准，没编）**
+### 未知项（拿不准，没编）
 
 8. **`.gradle-compose-cache/`**：实测是 Gradle 8.11 project cache，全仓无引用，可删；
-   但 `.gitignore` 里没列出它（要不要加？）。
-9. **仓库不是 git 工作副本**：本工作目录下没有 `.git`，无法读提交历史核对分支模型/提交惯例；
-   第 6 节的提交/分支约定来自团队规范与 CI 文件，不是从历史读出来的。
-10. **`tools/` 目录缺失**：`scripts/seed-gradle-wrapper.ps1` 从旁置 `tools/` 播种 wrapper 发行版，
-    但仓库里没有 `tools/`，该脚本在纯 clone 环境下无法直接跑（需 `-ToolsRoot`）。
-    拼回缺失的 58 个 `gradle-wrapper.jar` 因此需要先用根 wrapper 的发行版或从 9 个幸存工程拷贝。
+   已加入 `.gitignore`（commit `4f56186`），不再是问题。
+9. **`tools/` 目录缺失**：`scripts/seed-gradle-wrapper.ps1` 从旁置 `tools/` 播种 wrapper 发行版，
+   但仓库里没有 `tools/`，该脚本在纯 clone 环境下无法直接跑（需 `-ToolsRoot`）。
+   wrapper jar 已经补齐，无需再补种。
 
 ---
 
