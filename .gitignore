@@ -1,0 +1,62 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime
+run/
+logs/
+*.log
+
+# Dependencies
+*.jar
+!gradle/wrapper/*.jar
+!versions/*/libs/*.jar
+!newforge/*/libs/*.jar
+
+# Artifacts & Temp
+_artifacts/
+source/
+*.zip
+download/
+hs_err_pid*.log
+compile_errors.txt
+compile-errors-index.txt
+build_log*.txt
+baritone-checksums.txt
+GameRenderer_bytecode.txt
+*.tmp
+*.bak
+
+# Local test environment (PCL instances, logs, natives, reports)
+.test/
+baritone-maven/
+fabric/baritone-maven/
+
+# Stale porting artifacts and baritone tool workspaces
+_porting_stale/
+_tools/
+
+# Local smoke-test scratch space (launch logs, javap dumps, audit output)
+_smoke/
+scripts/__pycache__/
+
+# Wallpaper Engine reverse-engineering scratch space (extracted scene art and
+# the probe scripts); the findings live in docs/wallpaper-engine-scene.md
+.recon/
+
+# Minecraft runtime config written when the client is launched from the repo root
+/config/
+
+# Agent tool state (the tool dirs keep their own .gitignore as well)
+.reasonix/
+reasonix.toml
