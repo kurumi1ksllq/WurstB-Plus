@@ -32,7 +32,7 @@ public final class ChangelogOtf extends OtherFeature
 	@Override
 	public void doPrimaryAction()
 	{
-		String link = "https://github.com/xiegeezr886/WurstB-Plus/releases/tag/v"
+		String link = "https://github.com/kurumi1ksllq/WurstB-Plus/releases/tag/v"
 			+ WurstClient.VERSION;
 		Util.getPlatform().openUri(link);
 	}
