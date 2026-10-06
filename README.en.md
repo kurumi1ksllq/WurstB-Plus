@@ -4,12 +4,12 @@
 
 <img src="logo.png" alt="WurstB+ Plus" width="620"/>
 
-[![Release](https://img.shields.io/github/v/release/xiegeezr886/WurstB-Plus?style=flat-square&label=release&color=007CFF)](https://github.com/xiegeezr886/WurstB-Plus/releases)
+[![Release](https://img.shields.io/github/v/release/kurumi1ksllq/WurstB-Plus?style=flat-square&label=release&color=007CFF)](https://github.com/kurumi1ksllq/WurstB-Plus/releases)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1~26.2-3C8527?style=flat-square)](#version-support)
 [![Loaders](https://img.shields.io/badge/Loaders-Forge%20%7C%20NeoForge%20%7C%20Fabric-6E6E6E?style=flat-square)](#version-support)
 [![Java](https://img.shields.io/badge/Java-17%20%7C%2021%20%7C%2025-E76F00?style=flat-square)](#version-support)
 [![Gradle projects](https://img.shields.io/badge/Gradle_projects-64-4C1D95?style=flat-square)](#repository-layout)
-[![preview](https://img.shields.io/badge/preview-v1.6.0-8A2BE2?style=flat-square)](https://github.com/xiegeezr886/WurstB-Plus/releases/tag/v1.6.0)
+[![preview](https://img.shields.io/badge/preview-v1.6.0-8A2BE2?style=flat-square)](https://github.com/kurumi1ksllq/WurstB-Plus/releases/tag/v1.6.0)
 [![License](https://img.shields.io/badge/license-GPL--3.0-2E7D32?style=flat-square)](LICENSE.txt)
 
 </div>
@@ -45,8 +45,8 @@ WurstB+.Plus-<version>-<loader>-<mc>.jar      e.g. WurstB+.Plus-1.5.0-Forge-1.21
 
 | Release | Contents | Notes |
 | --- | --- | --- |
-| [**v1.5.0**](https://github.com/xiegeezr886/WurstB-Plus/releases/tag/v1.5.0) | 64 assets | The main release, covering every version |
-| [**v1.6.0**](https://github.com/xiegeezr886/WurstB-Plus/releases/tag/v1.6.0) | Forge 1.20.1 | Prerelease, carries the new v1.6 subsystems |
+| [**v1.5.0**](https://github.com/kurumi1ksllq/WurstB-Plus/releases/tag/v1.5.0) | 64 assets | The main release, covering every version |
+| [**v1.6.0**](https://github.com/kurumi1ksllq/WurstB-Plus/releases/tag/v1.6.0) | Forge 1.20.1 | Prerelease, carries the new v1.6 subsystems |
 
 > **Note:** Not all three 1.20.1 projects are v1.5. The **root Forge 1.20.1 project is v1.6.0**
 > (the only one with the v1.6 subsystems), while `fabric/` and `neoforge/` are still v1.5.0. The
