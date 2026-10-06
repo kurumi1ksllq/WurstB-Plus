@@ -93,8 +93,10 @@ WurstB+.Plus-<版本>-<加载器>-<mc>.jar        例：WurstB+.Plus-1.5.0-Forge
 ## 许可
 
 **源码采用 [GPL-3.0](LICENSE.txt)（继承自 Wurst）**。
-仓库根目录的 `LICENSE.txt` 是 Forge MDK 模板带来的 LGPL 2.1 文本，适用于其中所述的
-Minecraft Forge / FML 部分。
+各工程目录下的 `LICENSE.txt` / `LICENSE` 均为 **GPL-3.0 全文**（2026-10-06 统一，此前从
+Forge MDK 模板带来的是 LGPL 2.1），`build.gradle` 打包时会把它嵌入 jar。
+部分工程另有 `TEMPLATE_LICENSE.txt`，那是 NeoForged MDK 模板自带文件的 **MIT** 许可，
+仅适用于模板文件本身，与本项目源码无关，故保留。
 
 > **注意：** 只有 **1.21.11 与 26.2 的六个工程**做过**游戏内启动**验证；其余工程的产物通过的是
 > 编译与**打包校验**（zip 完好、含加载器元数据与 Mixin 配置、含主类），**没有游戏内启动验证**。
